@@ -104,16 +104,31 @@ redirect_tpl = """
 """
 
 
+KNOWN_SHORTNERZ = (
+    'goo.gl',
+    'bit.ly',
+    't.co',
+    'ow.li',
+    'tr.im',
+    'is.gd',
+    'tiny.cc',
+    'tinyurl.com',
+    'bit.do',
+    'fb.me',
+)
+
+
 def _follow(url):
-    """ Follows 301 and 302 redirect and extract location for url that does
-    not match current host to get the real final url"""
+    """ Follows 301 and 302 redirect and extract location for url matches known
+    shortners """
     try:
-        app.logger.debug("Following %s", url)
         urlp = urlparse(url)
     except Exception:
         app.logger.exception("Could not parse %s", url)
     else:
-        if urlp.netloc not in ('localhost', '127.0.0.1', request.host) and urlp.scheme:
+        if urlp.netloc not in ('localhost', '127.0.0.1', request.host)\
+            and urlp.netloc in KNOWN_SHORTNERZ\
+                and urlp.scheme:
             try:
                 resp = requests.head(url)
                 if resp.ok and resp.status_code in (301, 302):
