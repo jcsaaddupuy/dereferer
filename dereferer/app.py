@@ -130,10 +130,15 @@ def _follow(url):
             and urlp.netloc in KNOWN_SHORTNERZ\
                 and urlp.scheme:
             try:
-                resp = requests.head(url)
+                app.logger.info("Following %s", url)
+                resp = requests.head(url, allow_redirects=False)
                 if resp.ok and resp.status_code in (301, 302):
-                    url = resp.headers.get('location', url)
-                    app.logger.debug("URL is a redirection. Next url %s", url)
+                    url = resp.headers.get('Location')
+                    if not url:
+                        # could not get location with 'L', try lowercase
+                        # and fallback to original url
+                        url = resp.headers.get('location', url)
+                    app.logger.info("URL is a redirection. Next url %s", url)
             except Exception:
                 app.logger.exception("Could not get head at url %s", url)
     return url
