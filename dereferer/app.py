@@ -159,22 +159,30 @@ def cleanup(url):
         urlp = urlparse(url)
         # cleanup query param
         query = parse_qsl(urlp.query)
-        for annoying in ANNOYING_PARAMS:
-            query = [(x, y) for x, y in query if not x.startswith(annoying)]
+        # only if query is non empty and we manage to parse fragment as
+        # key/value
+        if urlp.query and query:
+            for annoying in ANNOYING_PARAMS:
+                query = [(x, y) for x, y in query if not x.startswith(annoying)]
+            urlp = urlp._replace(
+                query=urlencode(query),
+            )
 
         # cleanup fragment param
         fragment = parse_qsl(urlp.fragment)
-        for annoying in ANNOYING_PARAMS:
-            fragment = [(x, y) for x, y in fragment if not x.startswith(annoying)]
-
-        url = urlp._replace(
-            query=urlencode(query),
-            fragment=urlencode(fragment),
-        ).geturl()
+        # only if fragments is non empty and we manage to parse fragment as
+        # key/value
+        if urlp.fragment and fragment:
+            for annoying in ANNOYING_PARAMS:
+                fragment = [(x, y) for x, y in fragment if not x.startswith(annoying)]
+            urlp = urlp._replace(
+                fragment=urlencode(fragment),
+            )
+        url = urlp.geturl()
     except Exception:
         app.logger.exception("Problem cleaning the url")
 
-    app.logger.debug("Final url %s", url)
+    app.logger.info("Final url %s", url)
     return url
 
 
