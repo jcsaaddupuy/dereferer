@@ -67,7 +67,7 @@ logging.config.fileConfig(logging_conf)
 index_tpl = """
 <html>
 <head>
-<title>you are being redirected</title>
+<title>dereferer</title>
 </head>
 
 <body>
@@ -91,8 +91,8 @@ index_tpl = """
 redirect_tpl = """
 <html>
 <head>
-<title>you are being redirected</title>
-<meta http-equiv="refresh" content="2; URL={url}" />
+<title>redirecting...</title>
+<meta http-equiv="refresh" content="0; URL={url}" />
 </head>
 
 <body>
@@ -100,7 +100,7 @@ redirect_tpl = """
   <a id="autoclick" rel="noreferrer" href="{url}">{url}</a></p>
 </body>
 <script language="JavaScript" type="text/javascript">
-    window.setTimeout( document.getElementById('autoclick').click() , 1000 * 3);
+    window.setTimeout( document.getElementById('autoclick').click() , 1000 * 1);
 </script>
 </html>
 """
@@ -133,7 +133,7 @@ def _follow(url):
                 and urlp.scheme:
             try:
                 app.logger.info("Following %s", url)
-                resp = requests.head(url, allow_redirects=False)
+                resp = requests.head(url, allow_redirects=False, timeout=1)
                 if resp.ok and resp.status_code in (301, 302):
                     url = resp.headers.get('Location')
                     if not url:
