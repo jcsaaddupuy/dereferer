@@ -3,6 +3,11 @@
 
 Stupid, simple, self-hostable, dereferer.
 
+Why ?
+-----
+Using a dereferer is cool. A selfhosted one is better.
+
+
 
 Installationa from sources
 -----------------------
