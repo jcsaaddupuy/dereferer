@@ -8,6 +8,12 @@ Why ?
 Using a dereferer is cool. A selfhosted one is better.
 
 
+Features
+--------
+
+Simply redirect your browser, hiding your referer.
+
+Also follow url shotners links (bit.ly, goo.lg,...) to extract the final url and remove annoyings parameters (utm_*).
 
 Installation from sources
 --------------------------
