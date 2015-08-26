@@ -53,6 +53,10 @@ In a sub location, with caching :
     }
 
 
+Demo
+----
+No demo, sorry. Host it yourself !
+
 TODO
 ----
 Fork, hack, PR welcomes.
