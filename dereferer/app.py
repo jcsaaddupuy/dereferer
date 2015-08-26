@@ -100,7 +100,7 @@ redirect_tpl = """
   <a id="autoclick" rel="noreferrer" href="{url}">{url}</a></p>
 </body>
 <script language="JavaScript" type="text/javascript">
-    window.setTimeout( document.getElementById('autoclick').click() , 1000 * 1);
+    window.setTimeout( document.getElementById('autoclick').click() , 1000 * 0.5);
 </script>
 </html>
 """
@@ -182,7 +182,7 @@ def cleanup(url):
             )
         url = urlp.geturl()
     except Exception:
-        app.logger.exception("Problem cleaning the url")
+        app.logger.exception("Problem cleaning url %s", url)
 
     app.logger.info("Final url %s", url)
     return url
