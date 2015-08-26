@@ -1,4 +1,4 @@
-# dereferer
+dereferer
 ===========
 
 Stupid, simple, self-hostable, dereferer.
@@ -9,28 +9,22 @@ Using a dereferer is cool. A selfhosted one is better.
 
 
 
-Installationa from sources
+Installation from sources
 -----------------------
 
-```
-python setup.py install
-```
+   python setup.py install
 
 Running in dev mode with manage.py
 ----------------------------------
 
 
-```
-dereferer-manage runserver -p 8000
-```
+    dereferer-manage runserver -p 8000
 
 
 Running with gunicorn
 ----------------------
 
-```
-gunicorn -w 4 dereferer:app
-```
+    gunicorn -w 4 dereferer:app
 
 
 nginx setup examples
@@ -38,7 +32,8 @@ nginx setup examples
 
 
 In a sub location, with caching :
-```
+
+
         location /d {
 
                 rewrite ^/d/(.*)$ /$1 break;
@@ -57,5 +52,4 @@ In a sub location, with caching :
                 proxy_set_header X-Script-Name /d;
 
         }
-```
 
