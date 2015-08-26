@@ -12,18 +12,20 @@ Using a dereferer is cool. A selfhosted one is better.
 Installation from sources
 -----------------------
 
+::
    python setup.py install
 
 Running in dev mode with manage.py
 ----------------------------------
 
-
+::
     dereferer-manage runserver -p 8000
 
 
 Running with gunicorn
 ----------------------
 
+::
     gunicorn -w 4 dereferer:app
 
 
@@ -33,7 +35,7 @@ nginx setup examples
 
 In a sub location, with caching :
 
-
+::
     location /d {
         rewrite ^/d/(.*)$ /$1 break;
         expires 1M;
